@@ -1,0 +1,26 @@
+{
+  "name": "multiplayer-webvr",
+  "version": "0.0.1",
+  "description": "Just a little test really",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "socket.io": "^2.0.3"
+  },
+  "engines": {
+    "node": "8.1.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/welcome-project"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
