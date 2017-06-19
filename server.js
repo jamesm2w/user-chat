@@ -13,15 +13,27 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-var users = {};
+http.listen(3000, () => {
+  console.log('listening on *:3000');
+});
+
+var users = [];
 
 io.on("connection", function (user) {
-  var addedUser = false;
+  
+  user.on("auth", function (data) {
+    var userid = new UUID();
+    users.push(userid);
+    
+    user.broadcase
+  });
+  
+  
   
   user.on("send-message", function (data) {
     
-    user.broadcast.emit("recieve-message", {
-      user: user["uid"]["name"],
+    user.emit("recieve-message", {
+      user: user["uuid"]["name"],
       data: data
     });
     
