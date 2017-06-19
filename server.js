@@ -15,12 +15,16 @@ app.get('/', function(req, res){
 
 var users = {};
 
-io.on("connection", function (socket) {
+io.on("connection", function (user) {
   var addedUser = false;
   
-  socket.on("send-message", function (data) {
-    socket.broadcast.emit("recieve-message", {
-      
-    })
+  user.on("send-message", function (data) {
+    
+    user.broadcast.emit("recieve-message", {
+      user: user.user.name,
+      data: data
+    });
+    
   });
+  
 });
