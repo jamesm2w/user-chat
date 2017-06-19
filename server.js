@@ -12,3 +12,15 @@ const UUID = require("node-uuid");
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+
+var users = {};
+
+io.on("connection", function (socket) {
+  var addedUser = false;
+  
+  socket.on("send-message", function (data) {
+    socket.broadcast.emit("recieve-message", {
+      
+    })
+  });
+});
