@@ -21,7 +21,7 @@ io.on("connection", function (user) {
   user.on("send-message", function (data) {
     
     user.broadcast.emit("recieve-message", {
-      user: user.user.name,
+      user: user["uid"]["name"],
       data: data
     });
     
