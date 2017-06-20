@@ -43,8 +43,16 @@
           uuid = session.id;
           console.log("Authenticated with server, my uuid is: " + uuid);
           $(".auth-item").toggle("hidden");
-          $("#display-name").prepend(name).css("color", " blue; font-weight: bol");
+          $("#display-name").prepend(name).css("color"," blue").css("font-weight", "bold");
         });
+      }
+    });
+      
+    $("#send").click(function (){
+      data = $("#message").val().trim();
+      if (data && data !== ""){
+        data = JSON.stringify(data);
+        socket.emit("send-message", {name: name, data: data})
       }
     });
     </script>
