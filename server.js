@@ -40,4 +40,9 @@ io.on("connection", function (user) {
     
   });
   
+  user.on("disconnect", function (reason){
+    
+  });
+  
 });
+
