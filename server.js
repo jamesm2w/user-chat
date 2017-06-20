@@ -9,7 +9,7 @@ const _ = require('lodash');
 
 const User = require("./user");
 
-var counter = 0;
+var idCounter = 0;
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -26,7 +26,7 @@ io.on("connection", function (user) {
   let clientUser;
   
   user.on("auth", function (data, cb) {
-    var userid = users.length + 1;
+    var userid = ++idCounter;
     clientUser = new User(_.assign({
       id: userid,
       name: data["name"]
@@ -46,6 +46,8 @@ io.on("connection", function (user) {
   
   user.on("disconnect", function (reason){
     _.remove(users, clientUser);
+    console.log("Client Disconnected: " + reason);
+    
   });
   
 });
