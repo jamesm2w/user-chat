@@ -1,6 +1,6 @@
 // Use ES6
 "use strict";
-const _ = require("lowdash");
+const _ = require("lodash");
 
 class User {
   constructor(options) {

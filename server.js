@@ -7,7 +7,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
 
-const User = require("user.js");
+const User = require("./user");
 
 var counter = 0;
 
@@ -23,18 +23,18 @@ var users = [];
 
 io.on("connection", function (user) {
   
+  let clientUser;
+  
   user.on("auth", function (data, cb) {
     counter++;
     var userid = counter;
-    var clientUser = new User(_.assign({
+    clientUser = new User(_.assign({
       id: userid,
       name: data["name"]
     }));
     users.push(clientUser);
     cb({id: userid});
   });
-  
-  
   
   user.on("send-message", function (data) {
     
