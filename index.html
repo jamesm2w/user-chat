@@ -35,6 +35,9 @@
     var uuid;
     var name;
       
+    function prependMessage(data){
+        $("#messages").prepend('<li class="message" id=""><span style="color: blue; font-weight: bold" class="from">'+data["name"]+'</span>:<span class="data">'+data["data"]+'</span></li>');
+    }
       
     $("#go").click(function(){
       name = $("#name").val().trim();
@@ -52,7 +55,7 @@
       data = $("#message").val().trim();
       if (data && data !== ""){
         data = JSON.stringify(data);
-        socket.emit("send-message", {name: name, data: data})
+        socket.emit("send-message", {name: name, data: data}, prependMessage(data));
       }
     });
     </script>

@@ -35,13 +35,12 @@ io.on("connection", function (user) {
     cb({id: userid});
   });
   
-  user.on("send-message", function (data) {
-    
+  user.on("send-message", function (data, cb) {
     user.broadcast.emit("recieve-message", {
       user: users[data["uuid"]],
       data: data
     });
-    
+    cb(data);
   });
   
   user.on("disconnect", function (reason){
