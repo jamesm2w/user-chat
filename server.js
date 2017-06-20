@@ -17,23 +17,23 @@ http.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
-var users = [];
+var users = {};
 
 io.on("connection", function (user) {
   
   user.on("auth", function (data) {
     var userid = new UUID();
-    users.push(userid);
+    users[userid] = data["name"];
     
-    user.broadcase
+    user.emit("connected", userid);
   });
   
   
   
   user.on("send-message", function (data) {
     
-    user.emit("recieve-message", {
-      user: user["uuid"]["name"],
+    user.broadcast.emit("recieve-message", {
+      user: users[data["uuid"]],
       data: data
     });
     
