@@ -26,8 +26,7 @@ io.on("connection", function (user) {
   let clientUser;
   
   user.on("auth", function (data, cb) {
-    counter++;
-    var userid = counter;
+    var userid = users.length + 1;
     clientUser = new User(_.assign({
       id: userid,
       name: data["name"]
