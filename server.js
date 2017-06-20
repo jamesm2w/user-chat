@@ -7,6 +7,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
 
+const User = require("user.js");
+
 var counter = 0;
 
 app.get('/', function(req, res){
@@ -17,15 +19,18 @@ http.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
-var users = {};
+var users = [];
 
 io.on("connection", function (user) {
   
   user.on("auth", function (data, cb) {
     counter++;
     var userid = counter;
-    users[userid] = data["name"];
-    
+    var clientUser = new User(_.assign({
+      id: userid,
+      name: data["name"]
+    }));
+    users.push(clientUser);
     cb({id: userid});
   });
   
@@ -41,7 +46,7 @@ io.on("connection", function (user) {
   });
   
   user.on("disconnect", function (reason){
-    
+    _.remove(users, clientUser);
   });
   
 });
