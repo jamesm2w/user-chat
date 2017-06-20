@@ -12,8 +12,11 @@
   <body>
     
     <div class="auth">
-      <input id="name" type="text" placeholder="Name">
-      <button id="go">Go</button>
+      <input class="auth-item" id="name" type="text" placeholder="Name">
+      <button class="auth-item" id="go">Go</button>
+      <span class="auth-item" id="display-name" hidden>:</span>
+      <input class="auth-item" id="message" type="text" placeholder="Type your message here..." hidden>
+      <button class="auth-item" id="send" hidden>Send</button>
     </div>
     
     
@@ -30,6 +33,8 @@
     <script>
     var socket = io();
     var uuid;
+    var name;
+      
       
     $("#go").click(function(){
       name = $("#name").val().trim();
@@ -37,6 +42,8 @@
         socket.emit("auth", {name: name}, (session) => {
           uuid = session.id;
           console.log("Authenticated with server, my uuid is: " + uuid);
+          $(".auth-item").toggle("hidden");
+          $("#display-name").prepend(name).css("color", " blue; font-weight: bol");
         });
       }
     });

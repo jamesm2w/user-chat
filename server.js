@@ -22,7 +22,8 @@ var users = {};
 io.on("connection", function (user) {
   
   user.on("auth", function (data, cb) {
-    var userid = counter++;
+    counter++;
+    var userid = counter;
     users[userid] = data["name"];
     
     cb({id: userid});
