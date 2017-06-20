@@ -6,8 +6,8 @@ const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
-const UUID = require("node-uuid");
 
+var counter = 0;
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
@@ -21,11 +21,11 @@ var users = {};
 
 io.on("connection", function (user) {
   
-  user.on("auth", function (data) {
-    var userid = new UUID();
+  user.on("auth", function (data, cb) {
+    var userid = counter++;
     users[userid] = data["name"];
     
-    user.emit("connected", userid);
+    cb({id: userid});
   });
   
   

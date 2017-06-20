@@ -37,7 +37,7 @@
         socket.emit("auth", {name: name}, (session) => {
           uuid = session.id;
           console.log("Authenticated with server, my uuid is: " + uuid);
-        })
+        });
       }
     });
     </script>
