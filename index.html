@@ -11,19 +11,36 @@
   </head>
   <body>
     
-    <input id="name" type="text" placeholder="Name">
-    <button id="go">Go</button>
+    <div class="auth">
+      <input id="name" type="text" placeholder="Name">
+      <button id="go">Go</button>
+    </div>
+    
     
     <div class="chat-wrapper">
       <ul id="messages">
-        <li class="message" id="unique-id"><span style="color: bl" class="from">jamesm2w</span>:<span class="data">sss</span></li>
+        <li class="message" id="unique-id"><span style="color: blue; font-weight: bold" class="from">jamesm2w</span>:<span class="data">sss</span></li>
       </ul>
     </div>
     
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
             integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
             crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
+    <script>
+    var socket = io();
+    var uuid;
+      
+    $("#go").click(function(){
+      name = $("#name").val().trim();
+      if (name && name !== ""){
+        socket.emit("auth", {name: name}, (session) => {
+          uuid = session.id;
+          console.log("Authenticated with server, my uuid is: " + uuid);
+        })
+      }
+    });
+    </script>
 
   </body>
 </html>
