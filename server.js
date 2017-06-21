@@ -37,8 +37,8 @@ io.on("connection", function (user) {
   
   user.on("send-message", function (data, cb) {
     user.broadcast.emit("recieve-message", {
-      name: users[data["uuid"]],
-      data: data
+      name: data["name"],
+      data: data["data"]
     });
     cb(data);
   });
