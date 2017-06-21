@@ -21,7 +21,7 @@
     
     <div class="chat-wrapper">
       <ul id="messages">
-        <li class="message" id="unique-id"><span style="color: blue; font-weight: bold" class="from">jamesm2w</span>:<span class="data">sss</span></li>
+        
       </ul>
     </div>
     
@@ -40,6 +40,11 @@
       
     $("#go").click(function(){
       name = $("#name").val().trim();
+      if (name.length > 32){
+        alert("Your name is too long");
+        $("#name").val("");
+        name = "";
+      }
       if (name && name !== ""){
         socket.emit("auth", {name: name}, (session) => {
           uuid = session.id;
@@ -52,6 +57,7 @@
       
     $("#send").click(function(){
       data = $("#message").val().trim();
+      $("#message").val("");
       if (data && data !== ""){
         data = JSON.stringify(data);
         socket.emit("send-message", {name: name, data: data}, (data) => {
