@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     
@@ -51,12 +50,18 @@
       }
     });
       
-    $("#send").click(function (){
+    $("#send").click(function(){
       data = $("#message").val().trim();
       if (data && data !== ""){
         data = JSON.stringify(data);
-        socket.emit("send-message", {name: name, data: data}, prependMessage(data));
+        socket.emit("send-message", {name: name, data: data}, (data) => {
+          prependMessage(data);
+        });
       }
+    });
+      
+    socket.on("recieve-message", function(data){
+      prependMessage(data);
     });
     </script>
 
