@@ -17,19 +17,21 @@
     
       <nav class="indigo darken-2">
       <div class="nav-wrapper container row">
+        <span class="auth-item brand-logo" style="display: none; float: left;" id="display-name">:</span>
         <form class="col s6">
-          <span class="auth-item brand-logo" id="display-name" hidden>:</span>
+          
           <div class="input-field">
             <div class="auth" style="padding-left: 10px; padding-right:10px">
-              <input class="auth-item" id="name" type="text" placeholder="Name">
+              <input class="pre-auth" id="name" type="text" placeholder="Name">
               
-              <input class="auth-item" id="message" type="text" placeholder="Type your message here..." hidden>
-              <a class="auth-item btn" id="send" hidden>Send</a>
+              <input class="auth-item" id="message" type="text" placeholder="Type your message here..." style="display: none">
+              
             </div>
           </div>
         </form>
         <ul class="left hide-on-med-and-down col s3">
-              <li><a class="auth-item btn" id="go">Login</a></li>
+              <li><a class="pre-auth btn" id="go">Login</a></li>
+              <li><a class="auth-item btn" id="send" style="display: none">Send</a></li>
         </ul>
       </div>
     </nav>
@@ -69,8 +71,10 @@
         socket.emit("auth", {name: name}, (session) => {
           uuid = session.id;
           console.log("Authenticated with server, my uuid is: " + uuid);
-          $(".auth-item").toggle("hidden");
-          $("#display-name").prepend(name).css("color"," blue").css("font-weight", "bold");
+          $(".pre-auth").remove();
+          $(".auth-item").css("display", "");
+          
+          $("#display-name").prepend(name).css("font-weight", "bold");
         });
       }
     });
