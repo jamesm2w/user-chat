@@ -7,16 +7,31 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    
   </head>
   <body>
     
-    <div class="auth">
-      <input class="auth-item" id="name" type="text" placeholder="Name">
-      <button class="auth-item" id="go">Go</button>
-      <span class="auth-item" id="display-name" hidden>:</span>
-      <input class="auth-item" id="message" type="text" placeholder="Type your message here..." hidden>
-      <button class="auth-item" id="send" hidden>Send</button>
-    </div>
+      <nav>
+      <div class="nav-wrapper">
+        <form>
+          <div class="input-field">
+            <div class="auth" style="padding-left: 10px; padding-right">
+              <input class="auth-item" id="name" type="text" placeholder="Name">
+              <a class="auth-item btn" id="go">Go</a>
+              <span class="auth-item" id="display-name" hidden>:</span>
+              <input class="auth-item" id="message" type="text" placeholder="Type your message here..." hidden>
+              <a class="auth-item btn" id="send" hidden>Send</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+    
     
     
     <div class="chat-wrapper">
@@ -29,6 +44,8 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
             integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
             crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
     <script>
     var socket = io();
     var uuid;
