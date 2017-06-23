@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome to Glitch!</title>
-    <meta name="description" content="A cool thing made with Glitch">
+    <title>Multi-User Volatile Chat</title>
+    <meta name="description" content="Multi-User chat using Node.js, socket.io and some others">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,39 +15,41 @@
   </head>
   <body>
     
-    <nav class="indigo darken-2" id="pre-auth">    
-      <div class="nav-wrapper row">
-        <form class="col s6">
-          <div class="input-field">
-              <input id="name" type="text" placeholder="Name" data-length="32">
-          </div>
-        </form>
-        <ul class="col s3">
-          <li><a class="btn" id="go">Login</a></li>
-        </ul>
-      </div>
-    </nav>
-    
-    <nav class="indigo darken-1" id="post-auth" style="display: none">    
-      <div class="nav-wrapper row">
-        <ul class="col s4 right">
-          <li><a class="btn" id="display-name">:</a></li>
-        </ul>
-        <form class="col s6">
-          <div class="input-field">
-              <input id="message" type="text" placeholder="Type your message here...">
-          </div>
-        </form>
-        <ul class="col s2">
-          <li><a class="btn" id="send">Send</a></li>
-        </ul>
-      </div>
-    </nav>
+    <div class="navbar-fixed">
 
+      <nav class="indigo darken-2" id="pre-auth">    
+        <div class="nav-wrapper row">
+          <form class="col s6">
+            <div class="input-field">
+                <input id="name" type="text" placeholder="Name" data-length="32">
+            </div>
+          </form>
+          <ul class="col s3">
+            <li><a class="btn" id="go">Login</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <nav class="indigo darken-1" id="post-auth" style="display: none">    
+        <div class="nav-wrapper row">
+          <ul class="col s4">
+            <li style="float: right"><a class="btn" id="display-name">:</a></li>
+          </ul>
+          <form class="col s6">
+            <div class="input-field">
+                <input id="message" type="text" placeholder="Type your message here...">
+            </div>
+          </form>
+          <ul class="col s2">
+            <li><a class="btn" id="send">Send</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    </div>
     
     
-    
-    <div class="chat-wrapper">
+    <div class="container chat-wrapper">
       <ul id="messages">
         
       </ul>
