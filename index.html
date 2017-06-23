@@ -15,19 +15,28 @@
   </head>
   <body>
     
-      <nav class="indigo darken-2">
-        
-      <div class="nav-wrapper container row">
-        
+    <nav class="indigo darken-2" id="pre-auth">    
+      <div class="nav-wrapper row">
+        <form class="col s6">
+          <div class="input-field">
+              <input class="pre-auth" id="name" type="text" placeholder="Name" data-length="32">
+          </div>
+        </form>
+        <ul class="col s3">
+          <li><a class="pre-auth btn" id="go">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <nav class="indigo darken-1" id="">    
+      <div class="nav-wrapper row">
         <form class="col s6">
           <div class="input-field">
               <span class="auth-item brand-logo prefix" style="display: none;" id="display-name">:</span>
-              <input class="pre-auth" id="name" type="text" placeholder="Name" data-length="32">
               <input class="auth-item" id="message" type="text" placeholder="Type your message here..." style="display: none">
           </div>
         </form>
-        <ul class="left hide-on-med-and-down col s3">
-          <li><a class="pre-auth btn" id="go">Login</a></li>
+        <ul class="col s3">
           <li><a class="auth-item btn" id="send" style="display: none">Send</a></li>
         </ul>
       </div>
