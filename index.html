@@ -19,25 +19,27 @@
       <div class="nav-wrapper row">
         <form class="col s6">
           <div class="input-field">
-              <input class="pre-auth" id="name" type="text" placeholder="Name" data-length="32">
+              <input id="name" type="text" placeholder="Name" data-length="32">
           </div>
         </form>
         <ul class="col s3">
-          <li><a class="pre-auth btn" id="go">Login</a></li>
+          <li><a class="btn" id="go">Login</a></li>
         </ul>
       </div>
     </nav>
     
-    <nav class="indigo darken-1" id="">    
+    <nav class="indigo darken-1" id="post-auth" style="display: none">    
       <div class="nav-wrapper row">
+        <ul class="col s4 right">
+          <li><a class="btn" id="display-name">:</a></li>
+        </ul>
         <form class="col s6">
           <div class="input-field">
-              <span class="auth-item brand-logo prefix" style="display: none;" id="display-name">:</span>
-              <input class="auth-item" id="message" type="text" placeholder="Type your message here..." style="display: none">
+              <input id="message" type="text" placeholder="Type your message here...">
           </div>
         </form>
-        <ul class="col s3">
-          <li><a class="auth-item btn" id="send" style="display: none">Send</a></li>
+        <ul class="col s2">
+          <li><a class="btn" id="send">Send</a></li>
         </ul>
       </div>
     </nav>
@@ -77,8 +79,8 @@
         socket.emit("auth", {name: name}, (session) => {
           uuid = session.id;
           console.log("Authenticated with server, my uuid is: " + uuid);
-          $(".pre-auth").remove();
-          $(".auth-item").css("display", "");
+          $("#pre-auth").remove();
+          $("#post-auth").css("display", "");
           
           $("#display-name").prepend(name).css("font-weight", "bold");
         });
