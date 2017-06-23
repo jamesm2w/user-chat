@@ -23,7 +23,7 @@
 
       <nav class="indigo darken-2" id="pre-auth">    
         <div class="nav-wrapper row">
-          <form class="col s6">
+          <form class="col s6" id="pre-auth-form">
             <div class="input-field">
                 <input id="name" type="text" placeholder="Name" data-length="32">
             </div>
@@ -39,7 +39,7 @@
           <ul class="col s4">
             <li style="float: right"><a class="btn" id="display-name">:</a></li>
           </ul>
-          <form class="col s6">
+          <form class="col s6" id="post-auth-form">
             <div class="input-field">
                 <input id="message" type="text" placeholder="Type your message here...">
             </div>
@@ -64,63 +64,77 @@
     </div>
     
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
-            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
     <script>
-    var socket = io();
-    var uuid;
-    var name;
-      
-    function prependMessage(data){
-        $("#messages").prepend('<li class="message" id=""><span style="color: blue; font-weight: bold" class="from">'+data["name"]+'</span>:<span class="data">'+data["data"]+'</span></li>');
-    }
-    
-      
-    $("#name").keydown(function (){
-      if ($("#name").hasClass("invalid")){
-        $("#go").addClass("red darken-2");
-      } else {
-        $("#go").removeClass("red darken-2");
+      var socket = io();
+      var uuid;
+      var name;
+
+      function prependMessage(data){
+          $("#messages").prepend("<div class='card-panel teal'><span class='white-text'>++</span></div>");
       }
-    });
-      
-      
-    $("#go").click(function(){
-      name = $("#name").val().trim();
-      if (name.length > 32){
-        alert("Your name is too long");
-        $("#name").val("");
-        name = "";
+
+      function sendMessage(){
+          data = $("#message").val().trim();
+          $("#message").val("");
+          if (data && data !== ""){
+            data = JSON.stringify(data);
+            socket.emit("send-message", {name: name, data: data}, (data) => {
+              prependMessage(data);
+            });
+          }
       }
-      if (name && name !== ""){
-        socket.emit("auth", {name: name}, (session) => {
-          uuid = session.id;
-          console.log("Authenticated with server, my uuid is: " + uuid);
-          $("#pre-auth").remove();
-          $("#post-auth").css("display", "");
-          
-          $("#display-name").prepend(name).css("font-weight", "bold");
-        });
+
+      function sendAuth(){
+          name = $("#name").val().trim();
+          if (name.length > 32){
+            alert("Your name is too long");
+            $("#name").val("");
+            name = "";
+          }
+          if (name && name !== ""){
+            socket.emit("auth", {name: name}, (session) => {
+              uuid = session.id;
+              console.log("Authenticated with server, my uuid is: " + uuid);
+              $("#pre-auth").remove();
+              $("#post-auth").css("display", "");
+
+              $("#display-name").prepend(name).css("font-weight", "bold");
+            });
+          }
       }
-    });
+
+      $("#post-auth-form").on("submit", function(e){
+        sendMessage();
+        e.preventDefault();
+      });
+
+      $("#pre-auth-form").on("submit", function(e){
+        sendAuth();
+        e.preventDefault();
+      });
       
-    $("#send").click(function(){
-      data = $("#message").val().trim();
-      $("#message").val("");
-      if (data && data !== ""){
-        data = JSON.stringify(data);
-        socket.emit("send-message", {name: name, data: data}, (data) => {
-          prependMessage(data);
-        });
-      }
-    });
+      $("#go").click(function(){
+        sendAuth();
+      });
       
-    socket.on("recieve-message", function(data){
-      prependMessage(data);
-    });
+      $("#send").click(function(){
+        sendMessage();
+      });
+
+      $("#name").keydown(function (){
+        if ($("#name").hasClass("invalid")){
+          $("#go").addClass("red darken-2");
+        } else {
+          $("#go").removeClass("red darken-2");
+        }
+      });
+
+      socket.on("recieve-message", function(data){
+        prependMessage(data);
+      });
     </script>
 
   </body>
