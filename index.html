@@ -79,9 +79,14 @@
     }
     
       
-    if ($("#name").hasClass("invalid")){
-      $("#go").addClass("red darken-2")
-    }
+    $("#name").keydown(function (){
+      if ($("#name").hasClass("invalid")){
+        $("#go").addClass("red darken-2");
+      } else {
+        $("#go").removeClass("red darken-2");
+      }
+    });
+      
       
     $("#go").click(function(){
       name = $("#name").val().trim();
