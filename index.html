@@ -10,7 +10,11 @@
     
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-
+    <style>
+      .character-counter {
+        display: none;
+      }
+    </style>
     
   </head>
   <body>
@@ -51,7 +55,11 @@
     
     <div class="container chat-wrapper">
       <ul id="messages">
-        
+        <div class="card-panel teal">
+          <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span>
+        </div>
       </ul>
     </div>
     
@@ -68,6 +76,11 @@
       
     function prependMessage(data){
         $("#messages").prepend('<li class="message" id=""><span style="color: blue; font-weight: bold" class="from">'+data["name"]+'</span>:<span class="data">'+data["data"]+'</span></li>');
+    }
+    
+      
+    if ($("#name").hasClass("invalid")){
+      $("#go").addClass("red darken-2")
     }
       
     $("#go").click(function(){
