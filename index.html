@@ -14,6 +14,10 @@
       .character-counter {
         display: none;
       }
+      
+      .message {
+        word-wrap: break-word;
+      }
     </style>
     
   </head>
@@ -55,11 +59,7 @@
     
     <div class="container chat-wrapper">
       <ul id="messages">
-        <div class="card-panel teal">
-          <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-          </span>
-        </div>
+        
       </ul>
     </div>
     
@@ -73,7 +73,7 @@
       var name;
 
       function prependMessage(data){
-          $("#messages").prepend("<div class='card-panel teal'><span class='white-text'>++</span></div>");
+          $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"]+"</span></div>");
       }
 
       function sendMessage(){
