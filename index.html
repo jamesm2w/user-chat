@@ -103,6 +103,7 @@
 
               $("#display-name").prepend(name).css("font-weight", "bold");
             });
+            joinMsg({name: name});
           }
       }
 
@@ -132,17 +133,19 @@
         }
       });
 
-      socket.on("recieve-message", function(data){
-        prependMessage(data);
-      });
+      socket.on("recieve-message", prependMessage);
       
-      socket.on("joining", function(data){
+      socket.on("joining", joinMsg);
+      
+      socket.on("leaving", leavingMsg);
+      
+      function joinMsg(data) {
         $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> joined the rom</span></div>");
-      });
+      }
       
-      socket.on("leaving", function(data){
+      function leavingMsg(data){        
         $("#messages").prepend("<div class='card-panel red darken-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> left the room</span></div>");        
-      });
+      }
     </script>
 
   </body>
