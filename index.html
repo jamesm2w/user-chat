@@ -73,7 +73,7 @@
       var name;
 
       function prependMessage(data){
-          $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"]+"</span></div>");
+          $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"].splice(2, -1)+"</span></div>");
       }
 
       function sendMessage(){
@@ -134,6 +134,10 @@
 
       socket.on("recieve-message", function(data){
         prependMessage(data);
+      });
+      
+      socket.on("joining", function(data){
+        
       });
     </script>
 

@@ -32,6 +32,10 @@ io.on("connection", function (user) {
       name: data["name"]
     }));
     users.push(clientUser);
+    user.emit("recieve-message", {
+      name: "User joined",
+      data: data["name"]
+    });
     cb({id: userid});
   });
   
