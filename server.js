@@ -53,7 +53,7 @@ io.on("connection", function (user) {
     console.log("Client Disconnected: " + reason);
     
     if (clientUser == undefined){
-      user.broadcast.emit("leaving", {name:"someone"});
+      user.broadcast.emit("left", {name:"someone"});
     } else {
       user.broadcast.emit("leaving", {
         name: clientUser.name
