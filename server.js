@@ -32,9 +32,8 @@ io.on("connection", function (user) {
       name: data["name"]
     }));
     users.push(clientUser);
-    user.emit("recieve-message", {
-      name: "User joined",
-      data: data["name"]
+    user.emit("joining", {
+      name: data["name"]
     });
     cb({id: userid});
   });
@@ -50,7 +49,7 @@ io.on("connection", function (user) {
   user.on("disconnect", function (reason){
     _.remove(users, clientUser);
     console.log("Client Disconnected: " + reason);
-    
+    user.broadcast.emit("leaving")
   });
   
 });

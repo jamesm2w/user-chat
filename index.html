@@ -73,7 +73,7 @@
       var name;
 
       function prependMessage(data){
-          $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"].splice(2, -1)+"</span></div>");
+          $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"].replace(/['"]+/g, '')+"</span></div>");
       }
 
       function sendMessage(){
@@ -137,7 +137,11 @@
       });
       
       socket.on("joining", function(data){
-        
+        $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> joined the rom</span></div>");
+      });
+      
+      socket.on("leaving", function(data){
+        $("#messages").prepend("<div class='card-panel red darken-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> left the room</span></div>");        
       });
     </script>
 
