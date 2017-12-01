@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>3point0</title>
+    <title>User Chat</title>
     <meta name="description" content="Multi-User chat using Node.js, socket.io and some others">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
@@ -23,10 +23,6 @@
     
   </head>
   <body>
-    
-
-  
-        
     <div class="navbar-fixed">
 
       <nav class="indigo darken-2" id="pre-auth">    
@@ -75,8 +71,6 @@
         People in the room right now
       </p>
     </li>
-       <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-    
   </ul>
     
     <div class="container chat-wrapper">
@@ -171,12 +165,20 @@
       
       socket.on("leaving", leavingMsg);
       
+      socket.on("memberList", updateMemberList);
+      
+      function updateMemberList(data){
+        // data => 
+      }
+      
       function joinMsg(data) {
         $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> joined the room</span></div>");
+        $(".collection").append("<li class=\"collection-item\" id=\""+data["name"].slice()+"\"><div>"+data["name"].slice()+"<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">send</i></a></div></li>")
       }
       
       function leavingMsg(data){        
         $("#messages").prepend("<div class='card-panel red darken-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> left the room</span></div>");        
+        $("#"+data["name"]).remove();
       }
     </script>
 
