@@ -33,7 +33,7 @@
         <div class="nav-wrapper row">
             
           <ul class="col s3">
-            <li style="float: right"><a href="#" data-activates="slide-out" class="btn button-collapse"><i class="medium material-icons">menu</i></a></li>
+            <li style="float: left"><a style="display:inline-block;" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
           </ul>
           <form class="col s6" id="pre-auth-form">
             <div class="input-field">
@@ -51,6 +51,7 @@
 
             
           <ul class="col s3">
+            <li style="float: left"><a style="display:inline-block;" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
             <li style="float: right"><a class="btn" id="display-name">:</a></li>
           </ul>
           <form class="col s6" id="post-auth-form">
@@ -66,28 +67,20 @@
 
     </div>
     
-    <ul id="slide-out" class="side-nav">
-      <li>
-        <div class="user-view">
-          <div class="background">
-            <img src="images/office.jpg">
-          </div>
-          <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-          <a href="#!name"><span class="white-text name">John Doe</span></a>
-          <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div>
-      </li>
-      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-      <li><a href="#!">Second Link</a></li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Subheader</a></li>
-      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-    </ul>
+    <ul class="collection side-nav" id="slide-out">
+    <li class="collection-item avatar active">
+      <i class="material-icons circle green">person</i>
+      <span class="title">Online</span>
+      <p>
+        People in the room right now
+      </p>
+    </li>
+       <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+    
+  </ul>
     
     <div class="container chat-wrapper">
       <ul id="messages">
-        <i class="material-icons">menu</i>
-        
       </ul>
     </div>
     
@@ -137,7 +130,7 @@
             socket.emit("auth", {name: name}, (session) => {
               uuid = session.id;
               console.log("Authenticated with server, my uuid is: " + uuid);
-              $("#pre-auth").remove();
+              $("#pre-auth").css("display", "none");
               $("#post-auth").css("display", "");
 
               $("#display-name").prepend(name).css("font-weight", "bold");
