@@ -37,7 +37,7 @@ io.on("connection", function (user) {
       name: data["name"]
     });
     
-    io.sockets.emit("memberList", user);
+    user.emit("memberList", users);
     
     cb({id: userid});
   });

@@ -129,7 +129,7 @@
 
               $("#display-name").prepend(name).css("font-weight", "bold");
             });
-            joinMsg({name: name});
+            $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+name+"</span> joined the room</span></div>");;
           }
       }
 
