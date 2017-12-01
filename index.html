@@ -10,6 +10,7 @@
     
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
       .character-counter {
         display: none;
@@ -23,10 +24,31 @@
   </head>
   <body>
     
+  <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#!name"><span class="white-text name">John Doe</span></a>
+      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  
+        
     <div class="navbar-fixed">
 
       <nav class="indigo darken-2" id="pre-auth">    
         <div class="nav-wrapper row">
+            
+          <ul class="col s4">
+            <li style="float:left"><a href="#" data-activates="slide-out" class="button-collapse btn"><i class="material-icons">menu</i></a></li>
+          </ul>
           <form class="col s6" id="pre-auth-form">
             <div class="input-field">
                 <input id="name" type="text" placeholder="Name" data-length="32" autocomplete="off">
@@ -38,8 +60,10 @@
         </div>
       </nav>
 
-      <nav class="indigo darken-1" id="post-auth" style="display: none">    
+      <nav class="indigo darken-1" id="post-auth" style="display: none">  
         <div class="nav-wrapper row">
+
+            
           <ul class="col s4">
             <li style="float: right"><a class="btn" id="display-name">:</a></li>
           </ul>
@@ -59,7 +83,7 @@
     
     <div class="container chat-wrapper">
       <ul id="messages">
-        
+        <i class="material-icons">menu</i>
       </ul>
     </div>
     
@@ -71,6 +95,8 @@
       var socket = io();
       var uuid;
       var name;
+      
+       $(".button-collapse").sideNav();
 
       function prependMessage(data){
           $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"].replace(/['"]+/g, '')+"</span></div>");
