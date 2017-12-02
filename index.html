@@ -33,7 +33,7 @@
             <li style="float: right; text-align:center">
               <a class="dropdown-button waves-affect waves-light" href="#" data-activates="dropdown1" style="margin: auto"><i class="material-icons" id="currentlySelected">person</i></a>
               <ul id="dropdown1" class="dropdown-content">
-                <li id="optionPerson"><i class="material-icons teal white-text waves-effect waves-light" style="margin:auto; text-align:center">person</i></li>
+                <li id="optionPerson"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">person</i></li>
                 <li id="optionAndroid"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">android</i></li>
                 <li id="optionCamera"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">camera</i></li>
                 <li id="optionChild_care"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">child_care</i></li>
@@ -96,7 +96,21 @@
       var uuid;
       var name;
       
-      $("#optionCamera").click(setOption)
+      $("#optionCamera").click( (e) => {
+        $("#currentlySelected").text("camera");
+      });
+      
+      $("#optionPerson").click( (e) => {
+        $("#currentlySelected").text("person");
+      });
+      
+      $("#optionAndroid").click( (e) => {
+        $("#currentlySelected").text("android");
+      });
+      
+      $("#optionChild_care").click( (e) => {
+        $("#currentlySelected").text("child_care");
+      });
       
       $(document).ready( ()=> {
           $('.button-collapse').sideNav({
@@ -138,19 +152,20 @@
 
       function sendAuth(){
           name = $("#name").val().trim();
+          avatarIcon = $("#currentlySelected").text();
           if (name.length > 32){
             alert("Your name is too long");
             $("#name").val("");
             name = "";
           }
           if (name && name !== ""){
-            socket.emit("auth", {name: name}, (session) => {
+            socket.emit("auth", {name: name, icon: avatarIcon}, (session) => {
               uuid = session.id;
               console.log("Authenticated with server, my uuid is: " + uuid);
               $("#pre-auth").css("display", "none");
               $("#post-auth").css("display", "");
 
-              $("#display-name").prepend(name).css("font-weight", "bold");
+              $("#display-name").prepend(name).prepend("<i class=\"material-icons small\">"+avatarIcon+"</i> ").css("font-weight", "bold");
             });
             $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+name+"</span> joined the room</span></div>");;
           }

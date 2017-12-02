@@ -29,7 +29,8 @@ io.on("connection", function (user) {
     var userid = ++idCounter;
     clientUser = new User(_.assign({
       id: userid,
-      name: data["name"]
+      name: data["name"],
+      icon: data["icon"]
     }));
     users.push(clientUser);
     
