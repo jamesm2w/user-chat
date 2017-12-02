@@ -135,12 +135,14 @@
         );
       });
       function prependMessage(data){
-          $("#messages").prepend("<div class='card-panel teal message valign-wrapper'><i class=\"material-icons white-text\" style=''>"+data["icon"]+"</i><span class='white-text'><span style='font-weight: bold; font-size: 20px'>  "+data["name"]+":</span> "+data["data"].replace(/['"]+/g, "")+"</span></div>");
+          data["data"].replace("\\\"", "\"");
+          $("#messages").prepend("<div class='card-panel teal message valign-wrapper'><i class=\"material-icons white-text\" style=''>"+data["icon"]+"</i><span class='white-text'><span style='font-weight: bold; font-size: 20px'>  "+data["name"]+":</span> "+data["data"]+"</span></div>");
       }
       
 
       function sendMessage(){
           data = $("#message").val().trim();
+          
           icon = $("#currentlySelected").text();
           data["icon"] = icon;
           $("#message").val("");
