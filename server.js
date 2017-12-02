@@ -56,12 +56,13 @@ io.on("connection", function (user) {
     _.remove(users, clientUser);
     console.log("Client Disconnected: " + reason);
     
-    if (clientUser == undefined){
+    if (clientUser === undefined){
       user.broadcast.emit("left", {name:"someone"});
     } else {
       user.broadcast.emit("leaving", {
         name: clientUser.name
-      })
+      });
+      //user.broadcase.emit("memberList", users)
     }
   });
 });

@@ -204,24 +204,26 @@
       
       socket.on("leaving", leavingMsg);
       
-      socket.on("memberList", updateMemberList);
+      socket.on("memberList", (data) => {
+        updateMemberList(data, true);
+      });
       
       function updateMemberList(data, deleteFlag){
         // data => [{name: "name"},{name: "another name"}]
-        del = deleteFlag || false;
-        
-        $(".collection").empty().append('<li class="collection-item avatar active"> <i class="material-icons circle green">person</i><span class="title">Online</span><p>People in the room right now</p></li>');
+        if(typeof deleteFlag !== "undefined") {
+          $(".collection").empty().append('<li class="collection-item avatar active"> <i class="material-icons circle green">person</i><span class="title">Online</span><p>People in the room right now</p></li>');
+        }
         for (var i = 0; i < data.length; i++) {
-          $(".collection").append("<li id='"+data[i]["icon"]+"' class='collection-item avatar active'>\
+          $(".collection").append("<li id='"+data[i]["name"]+"' class='collection-item avatar'>\
       <i class='material-icons circle'>"+data[i]["icon"]+"</i>\
-      <span class='title'>"+data[i]["icon"]+"</span>\
+      <span class='title'>"+data[i]["name"]+"</span>\
     </li>");
         }
       }
       
       function joinMsg(data) {
         $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> joined the room</span></div>");
-        $(".collection").append("<li class=\"collection-item\" id=\""+data["name"].slice()+"\"><div>"+data["name"].slice()+"<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">send</i></a></div></li>")
+        updateMemberList([data]);
       }
       
       function leavingMsg(data){        
