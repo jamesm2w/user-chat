@@ -57,7 +57,7 @@
             
           <ul class="col s3">
             <li style="float: left"><a style="display:inline-block;" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
-            <li style="float: right"><a href="#!"><p id="display-name"><i class="material-icons" style="float:left;">person</i>:</p></a></li>
+            <li style="float: right"><a href="#!"><p style="margin-top:0;" id="display-name"><i class="material-icons" style="float:left;" id="avatarIcon">person</i>:</p></a></li>
           </ul>
           <form class="col s6" id="post-auth-form">
             <div class="input-field">
@@ -166,6 +166,7 @@
               $("#post-auth").css("display", "");
 
               $("#display-name").prepend(name).css("font-weight", "bold");
+              $("#avatarIcon").text(avatarIcon);
             });
             $("#messages").prepend("<div class='card-panel blue lighten-1 message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+name+"</span> joined the room</span></div>");;
           }
@@ -205,13 +206,16 @@
       
       socket.on("memberList", updateMemberList);
       
-      function updateMemberList(data){
+      function updateMemberList(data, deleteFlag){
         // data => [{name: "name"},{name: "another name"}]
+        del = deleteFlag || false;
+        
         $(".collection").empty().append('<li class="collection-item avatar active"> <i class="material-icons circle green">person</i><span class="title">Online</span><p>People in the room right now</p></li>');
-        console.log("Updating member list");
         for (var i = 0; i < data.length; i++) {
-          $(".collection").append("<li class=\"collection-item\" id=\""+data[i]["name"].slice()+"\"><div>"+data[i]["name"].slice()+"<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons\">send</i></a></div></li>");
-          console.log(data[i]["name"]);
+          $(".collection").append("<li id='"+data[i]["icon"]+"' class='collection-item avatar active'>\
+      <i class='material-icons circle'>"+data[i]["icon"]+"</i>\
+      <span class='title'>"+data[i]["icon"]+"</span>\
+    </li>");
         }
       }
       
