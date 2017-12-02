@@ -61,7 +61,8 @@ io.on("connection", function (user) {
       user.broadcast.emit("left", {name:"someone"});
     } else {
       user.broadcast.emit("leaving", {
-        name: clientUser.name
+        name: clientUser.name,
+        icon: clientUser.icon
       });
       //user.broadcase.emit("memberList", users)
     }
