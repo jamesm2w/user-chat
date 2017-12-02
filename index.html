@@ -30,13 +30,13 @@
             
           <ul class="col s3">
             <li style="float: left"><a style="display:inline-block;" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
-            <li style="">
-              <a class="dropdown-button circle" href="#" data-activates="dropdown1"><i class="material-icons">person</i></a>
+            <li style="float: right; text-align:center">
+              <a class="dropdown-button waves-affect waves-light" href="#" data-activates="dropdown1" style="margin: auto"><i class="material-icons" id="currentlySelected">person</i></a>
               <ul id="dropdown1" class="dropdown-content">
-                <li><a href="#!"><i class="material-icons">person</i></a></li>
-                <li><a href="#!"><i class="material-icons">android</i></a></li>
-                <li><a href="#!"><i class="material-icons">cloud</i></a></li>
-                <li><a href="#!"><i class="material-icons">camera</i></a></li>
+                <li id="optionPerson"><i class="material-icons teal white-text waves-effect waves-light" style="margin:auto; text-align:center">person</i></li>
+                <li id="optionAndroid"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">android</i></li>
+                <li id="optionCamera"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">camera</i></li>
+                <li id="optionChild_care"><i class="material-icons teal lighten-1 white-text waves-effect waves-light" style="margin:auto; text-align:center">child_care</i></li>
               </ul>
             </li>
           </ul>
@@ -96,6 +96,8 @@
       var uuid;
       var name;
       
+      $("#optionCamera").click(setOption)
+      
       $(document).ready( ()=> {
           $('.button-collapse').sideNav({
             menuWidth: 300, // Default is 300
@@ -107,20 +109,21 @@
           }
         );
           $('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false, // Displays dropdown below the button
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false // Stops event propagation
-    }
-  );
+            inDuration: 300,
+            outDuration: 225,
+            constrainWidth: false, // Does not change width of dropdown to that of the activator
+            hover: false, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left', // Displays dropdown with edge aligned to the left of button
+            stopPropagation: false // Stops event propagation
+          }
+        );
       });
       function prependMessage(data){
           $("#messages").prepend("<div class='card-panel teal message'><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"]+":</span> "+data["data"].replace(/['"]+/g, '')+"</span></div>");
       }
+      
 
       function sendMessage(){
           data = $("#message").val().trim();
