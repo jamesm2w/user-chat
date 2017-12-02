@@ -35,7 +35,8 @@ io.on("connection", function (user) {
     users.push(clientUser);
     
     user.broadcast.emit("joining", {
-      name: data["name"]
+      name: data["name"],
+      icon: data["icon"]
     });
     
     user.emit("memberList", users);
