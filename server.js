@@ -47,7 +47,8 @@ io.on("connection", function (user) {
   user.on("send-message", function (data, cb) {
     user.broadcast.emit("recieve-message", {
       name: data["name"],
-      data: data["data"]
+      data: data["data"],
+      icon: data["icon"]
     });
     cb(data);
   });
