@@ -44,6 +44,11 @@ io.on("connection", function (user) {
     cb({id: userid});
   });
   
+  user.on("req-memberlist", function (cb) {
+    user.emit("memberList", users);
+    cb();
+  });
+  
   user.on("update-member", function (data, cb) {
     let name = data.name, icon = data.icon, uuid = data.uuid, sendObj = {type: "self"};
     for (var i = 0; i < users.length; i++) {
