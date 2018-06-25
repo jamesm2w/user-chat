@@ -57,7 +57,11 @@
             
           <ul class="col s3">
             <li style="float: left"><a style="display:inline-block;" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
-            <li style="float: right"><a href="#!"><p style="margin-top:0;" id="display-name"><i class="material-icons" style="float:left;" id="avatarIcon">person</i>:</p></a></li>
+            <li style="float: right"><a href="#!">
+              <p style="margin-top:0;">
+                <span id="display-name"></span>
+                <i class="material-icons" style="float:left;" id="avatarIcon">person</i>:
+              </p></a></li>
           </ul>
           <form class="col s6" id="post-auth-form">
             <div class="input-field">
@@ -170,7 +174,7 @@
               $("#pre-auth").css("display", "none");
               $("#post-auth").css("display", "");
 
-              $("#display-name").prepend(name).css("font-weight", "bold");
+              $("#display-name").text(name).css("font-weight", "bold");
               $("#avatarIcon").text(avatarIcon);
               
               socket.emit("req-memberlist", () => {return true;});
@@ -258,11 +262,11 @@
         if( data.type == "error") {
           throw "WHOA";
         } else if (data.type && data.type == "self") {
-          $("#display-name").prepend(data.new.name);
+          $("#display-name").text(data.new.name);
           $("#avatarIcon").text(data.new.icon);
         }
         $("#messages").prepend(`
-          <div class='card-panel lightblue lighten-1 message valign-wrapper'>\
+          <div class='card-panel blue lighten-2 message valign-wrapper'>\
              <i class=\"material-icons white-text\" style=''>${data.old.icon}</i>\
              <span class='white-text'><span style='font-weight: bold; font-size: 20px'>${data.old.name.slice()}"</span> \
              is now <i class=\"material-icons white-text\" style=''>${data.new.icon}</i>\

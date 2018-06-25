@@ -6,6 +6,10 @@ class User {
   constructor(options) {
     _.assign(this, options);
   }
+  
+  toJSON () {
+    return 
+  }
 }
 
 module.exports = User;
