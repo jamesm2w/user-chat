@@ -44,6 +44,18 @@ io.on("connection", function (user) {
     cb({id: userid});
   });
   
+  user.on("update-member", function (data, cb) {
+    let name = data.name, icon = data.icon, uuid = data.uuid;
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id == uuid) {
+        users[i].name = name;
+        users[i].icon = icon;
+        
+        cb()
+      }
+    }
+  });
+  
   user.on("send-message", function (data, cb) {
     user.broadcast.emit("recieve-message", {
       name: data["name"],
