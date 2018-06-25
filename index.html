@@ -228,9 +228,8 @@
         }
         
         $(".collection").children().each((i) => {
-          console.log($(".collection").children()[i]);
-          if (uuid && $(".collection").children()[i].getAttribute('id') === uuid) {
-            $(".collection").children()[i].append(`<a href="#!" class="secondary-content" onclick="sendUpdate();event.preventDefault();"><i class="material-icons">edit</i></a>`);
+          if (uuid && $(".collection").children()[i].getAttribute('id') == uuid) {
+            $($(".collection").children()[i]).append("<a href=\"#!\" class=\"secondary-content\" onclick=\"sendUpdate();event.preventDefault();\"><i class=\"material-icons\">edit</i></a>");
           }
         });
       }
@@ -242,7 +241,7 @@
         }
         data.icon = prompt("Enter new icon", $("#avatarIcon").text());
         
-        socket.emit("update-member", data, updateUsr);
+        socket.emit("update-member", data, (data) => {updateUsr(data)});
       }
       
       function joinMsg(data) {
@@ -256,7 +255,9 @@
       }
       
       function updateUsr(data) {
-        if (data.type && data.type == "self") {
+        if( data.type == "error") {
+          throw "WHOA";
+        } else if (data.type && data.type == "self") {
           $("#display-name").prepend(data.new.name);
           $("#avatarIcon").text(data.new.icon);
         }

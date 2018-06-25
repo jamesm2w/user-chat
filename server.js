@@ -62,7 +62,7 @@ io.on("connection", function (user) {
         cb(sendObj);
       }
     }
-    cb();
+    cb({type:"error"});
   });
   
   user.on("send-message", function (data, cb) {
