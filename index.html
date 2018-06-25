@@ -134,6 +134,7 @@
           }
         );
       });
+      
       function prependMessage(data){
           data["data"].replace("\\\"", "\"");
           $("#messages").prepend("<div class='card-panel teal message valign-wrapper'><i class=\"material-icons white-text\" style=''>"+data["icon"]+"</i><span class='white-text'><span style='font-weight: bold; font-size: 20px'>  "+data["name"]+":</span> "+data["data"]+"</span></div>");
@@ -208,6 +209,8 @@
       
       socket.on("leaving", leavingMsg);
       
+      socket.on("update-member", updateUsr);
+      
       socket.on("memberList", (data) => {
         updateMemberList(data, true);
       });
@@ -233,6 +236,16 @@
       function leavingMsg(data){        
         $("#messages").prepend("<div class='card-panel red darken-1 message valign-wrapper'><i class=\"material-icons white-text\" style=''>"+data["icon"]+"</i><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+data["name"].slice()+"</span> left the room</span></div>");        
         $("#"+data["name"]).remove();
+      }
+      
+      function updateUsr(data) {
+        $("#messages").prepend(`
+          <div class='card-panel lightblue lighten-1 message valign-wrapper'>\
+             <i class=\"material-icons white-text\" style=''>${data.old.icon}</i>\
+             <span class='white-text'><span style='font-weight: bold; font-size: 20px'>${data.old.name.slice()}"</span> \
+             is now <i class=\"material-icons white-text\" style=''>${data.new.icon}</i>\
+             <span class='white-text'><span style='font-weight: bold; font-size: 20px'>${data.new.name.slice()}"</span>
+          </div>`);
       }
     </script>
 

@@ -45,15 +45,19 @@ io.on("connection", function (user) {
   });
   
   user.on("update-member", function (data, cb) {
-    let name = data.name, icon = data.icon, uuid = data.uuid;
+    let name = data.name, icon = data.icon, uuid = data.uuid, sendObj;
     for (var i = 0; i < users.length; i++) {
       if (users[i].id == uuid) {
+        sendObj.old = users[i];
         users[i].name = name;
         users[i].icon = icon;
+        sendObj.new = users[i];
+        user.emit("memberList", users);
         
-        cb()
+        cb(sendObj);
       }
     }
+    cb();
   });
   
   user.on("send-message", function (data, cb) {
