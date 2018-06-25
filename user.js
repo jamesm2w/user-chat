@@ -8,7 +8,7 @@ class User {
   }
   
   toJSON () {
-    return 
+    return Object.assign({}, this);
   }
 }
 

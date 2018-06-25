@@ -55,7 +55,7 @@ io.on("connection", function (user) {
       console.log(users[i]);
       console.log(uuid);
       if (users[i].id == uuid) {
-        sendObj.old = users[i].toJSON;
+        sendObj.old = users[i].toJSON();
         users[i].name = name;
         users[i].icon = icon;
         sendObj.new = users[i];
