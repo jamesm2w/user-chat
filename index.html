@@ -165,7 +165,7 @@
           }
           if (name && name !== ""){
             socket.emit("auth", {name: name, icon: avatarIcon}, (session) => {
-              uuid = session.id;
+              window.uuid = session.id;
               console.log("Authenticated with server, my uuid is: " + uuid);
               $("#pre-auth").css("display", "none");
               $("#post-auth").css("display", "");
@@ -173,7 +173,7 @@
               $("#display-name").prepend(name).css("font-weight", "bold");
               $("#avatarIcon").text(avatarIcon);
               
-              socket.emit("req-memberlist");
+              socket.emit("req-memberlist", () => {return true;});
             });
             $("#messages").prepend("<div class='card-panel blue lighten-1 message valign-wrapper'><i class=\"material-icons white-text\" style=''>"+avatarIcon+"</i><span class='white-text'><span style='font-weight: bold; font-size: 20px'>"+name+"</span> joined the room</span></div>");;
           }
@@ -235,12 +235,12 @@
       }
       
       function sendUpdate() {
-        let data = {name: "", icon: "", id: uuid};
+        let data = {name: "", icon: "", id: window.uuid};
         while (data.name.length > 32 || data.name.length == 0) {
           data.name = prompt("Enter new name", $("#display-name").text());
         }
         data.icon = prompt("Enter new icon", $("#avatarIcon").text());
-        
+        console.log(data);
         socket.emit("update-member", data, (data) => {updateUsr(data)});
       }
       

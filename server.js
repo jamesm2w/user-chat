@@ -50,8 +50,10 @@ io.on("connection", function (user) {
   });
   
   user.on("update-member", function (data, cb) {
-    let name = data.name, icon = data.icon, uuid = data.uuid, sendObj = {type: "self"};
+    let name = data.name, icon = data.icon, uuid = data.id, sendObj = {type: "self"};
     for (var i = 0; i < users.length; i++) {
+      console.log(users[i]);
+      console.log(uuid);
       if (users[i].id == uuid) {
         sendObj.old = users[i];
         users[i].name = name;
