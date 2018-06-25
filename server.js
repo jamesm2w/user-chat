@@ -45,7 +45,7 @@ io.on("connection", function (user) {
   });
   
   user.on("update-member", function (data, cb) {
-    let name = data.name, icon = data.icon, uuid = data.uuid, sendObj;
+    let name = data.name, icon = data.icon, uuid = data.uuid, sendObj = {type: "self"};
     for (var i = 0; i < users.length; i++) {
       if (users[i].id == uuid) {
         sendObj.old = users[i];

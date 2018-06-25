@@ -209,8 +209,6 @@
       
       socket.on("leaving", leavingMsg);
       
-      socket.on("update-member", updateUsr);
-      
       socket.on("memberList", (data) => {
         updateMemberList(data, true);
       });
@@ -221,11 +219,27 @@
           $(".collection").empty().append('<li class="collection-item avatar active"> <i class="material-icons medium circle green">person</i><span class="title">Online</span><p>People in the room right now</p></li>');
         }
         for (var i = 0; i < data.length; i++) {
-          $(".collection").append("<li id='"+data[i]["name"]+"' class='collection-item avatar'>\
+          $(".collection").append("<li id='"+data[i]["id"]+"' class='collection-item avatar'>\
       <i class='material-icons medium circle'>"+data[i]["icon"]+"</i>\
       <span class='title'>"+data[i]["name"]+"</span>\
     </li>");
         }
+        
+        $(".collection").children().each((el) => {
+          if (this.attr("id") == uuid) {
+            this.append(`<a href="#!" class="secondary-content" onclick="sendUpdate();event.preventDefault();"><i class="material-icons">edit</i></a>`);
+          }
+        });
+      }
+      
+      function sendUpdate() {
+        let data = {name: "", icon: "", id: uuid};
+        while (data.name.length > 32 || data.name.length == 0) {
+          data.name = prompt("Enter new name", $("#display-name").text());
+        }
+        data.icon = prompt("Enter new icon", $("#avatarIcon").text());
+        
+        socket.emit("update-member", data, updateUsr);
       }
       
       function joinMsg(data) {
@@ -239,6 +253,10 @@
       }
       
       function updateUsr(data) {
+        if (data.type && data.type == "self") {
+          $("#display-name").prepend(data.new.name);
+          $("#avatarIcon").text(data.new.icon);
+        }
         $("#messages").prepend(`
           <div class='card-panel lightblue lighten-1 message valign-wrapper'>\
              <i class=\"material-icons white-text\" style=''>${data.old.icon}</i>\
